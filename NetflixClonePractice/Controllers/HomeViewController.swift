@@ -9,7 +9,7 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
-    let sectionTitle: [String] = ["Trending Movies", "Popular", "Trending TV", "Upcoming Movies", "Top Rated"]
+    let sectionTitle: [String] = ["Trending Movies", "Trending TV", "Popular", "Upcoming Movies", "Top Rated"]
     
     private let homeFeedTable: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
@@ -30,7 +30,12 @@ class HomeViewController: UIViewController {
         let headerView = HeroHeaderUIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 450))
         homeFeedTable.tableHeaderView = headerView
         
-        getTrendingMovies()
+//        getTrendingMovies()
+//        getTrendingTvs()
+//        getUpcomingMovies()
+//        getPopular()
+        getTopRated()
+        
     }
     
     private func configureNavbar() {
@@ -67,6 +72,30 @@ class HomeViewController: UIViewController {
             }
         }
        }
+    
+    private func getTrendingTvs() {
+        APICaller.shared.getTrendingTvs { _ in
+            
+        }
+    }
+    
+    private func getUpcomingMovies() {
+        APICaller.shared.getUpcomingMovies { _ in
+            
+        }
+    }
+    
+    private func getPopular() {
+        APICaller.shared.getPopular { _ in
+            
+        }
+    }
+    
+    private func getTopRated() {
+        APICaller.shared.getTopRated { _ in
+            
+        }
+    }
 }
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
@@ -99,7 +128,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         header.textLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
         header.textLabel?.frame = CGRect(x: header.bounds.origin.x + 20, y: header.bounds.origin.y, width: 100, height: header.bounds.height)
         header.textLabel?.textColor = .black
-        header.textLabel?.text = header.textLabel?.text?.lowercased()
+        header.textLabel?.text = header.textLabel?.text?.capitalizeFirstLetter()
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
